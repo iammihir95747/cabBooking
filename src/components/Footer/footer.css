@@ -1,0 +1,32 @@
+
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	background-color: #222;
+	color: white;
+   
+	padding: 50px;
+  }
+  
+  .footer-section {
+	flex: 1;
+	padding: 19px;
+	margin-left:200px;
+  }
+  
+  .places ul, .pages ul, .social-media ul {
+	list-style: none;
+	padding: 0;
+  }
+  
+  .places li, .pages li, .social-media li {
+	margin: 5px 0;
+  }
+  
+  .social-media a {
+	color: #ffd700;
+	text-decoration: none;
+  }
+  
+  

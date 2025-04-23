@@ -1,0 +1,41 @@
+.footer-bar {
+    background-color: yellow; /* Match the background color */
+    color: black; /* Match the text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    display: flex;
+    justify-content: space-between; /* Distribute space between contact info and icons */
+    align-items: center; /* Vertically align items in the center */
+  }
+  
+  .contact-info {
+    display: flex;
+    gap: 30px; /* Space between contact information items */
+  }
+  
+  .contact-info > div {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between icon and text */
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 15px; /* Space between social icons */
+  }
+  
+  .social-icons a {
+    color: black; /* Icon color */
+    text-decoration: none; /* Remove underlines from links */
+    font-size: 1.2em; /* Adjust icon size */
+  }
+  
+  /* You might need to adjust icon styling based on the library you use */
+  .fa-phone-alt,
+  .fa-envelope,
+  .fa-map-marker-alt,
+  .fa-search,
+  .fa-whatsapp,
+  .fa-facebook-f,
+  .fa-instagram {
+    font-size: 1em; /* Adjust icon size */
+  }
