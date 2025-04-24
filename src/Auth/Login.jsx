@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 
 
-const API_BASE = " http://localhost:5001";
+const API_BASE = "http://localhost:5001";
 
 function Login() { 
   const [email, setEmail] = useState("");

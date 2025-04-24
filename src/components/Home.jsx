@@ -46,7 +46,7 @@ const Navbar = () => {
           <li><Link to="/Booking" className="nav-link" onClick={() => setMenuOpen(false)}>Booking</Link></li>
           <li><Link to="/About" className="nav-link" onClick={() => setMenuOpen(false)}>About</Link></li>
           <li><Link to="/Contact" className="nav-link" onClick={() => setMenuOpen(false)}>Contact Us</Link></li>
-          <p className="nav-menu">+91 8047325540</p>
+          
 
           
           <div className="mobile-auth-buttons">

@@ -7,11 +7,11 @@ function FooterBar() {
       <div className="contact-info">
         <div className="phone">
           <i className="fas fa-phone-alt"></i> {/* Assuming you're using Font Awesome */}
-          <span>+91 7028995009</span>
+          <span>+91 9054891423</span>
         </div>
         <div className="email">
           <i className="far fa-envelope"></i> {/* Assuming you're using Font Awesome */}
-          <span>info@dvarkeshtex.in</span>
+          <span>gohelvivek0000@gmail.com</span>
         </div>
         <div className="address">
           <i className="fas fa-map-marker-alt"></i> {/* Assuming you're using Font Awesome */}
