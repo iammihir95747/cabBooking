@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import './Booking.css';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
-import PhoneAuthModal from '../PhoneAuthModal/PhoneAuthModal'; 
-
-const API_BASE = "http://localhost:5001";
+import React, { useState } from "react";
 
 const Booking = () => {
   const [formData, setFormData] = useState({
@@ -13,117 +8,182 @@ const Booking = () => {
     pickupLocation: "",
     dropoffLocation: "",
     pickupDateTime: "",
-    bookingType: "one-way",
+    bookingType: "one-way", // Default type is "one-way"
     notes: "",
   });
+  const [submittedData, setSubmittedData] = useState(null);
+  const [apiError, setApiError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-
-  // Auto-auth check on mount
-  useEffect(() => {
-    const verified = localStorage.getItem("isPhoneVerified");
-    if (!verified) {
-      alert("You are not authorized. Redirecting to verification...");
-      setTimeout(() => setShowAuthModal(true), 1000);
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
+  // Handle form field changes
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isAuthenticated) {
-      alert("Please verify your phone before booking.");
-      setShowAuthModal(true);
-      return;
-    }
-
+  
+    console.log("Form data being sent:", formData);
+  
+    const bookingData = {
+      name: formData.name,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      pickupLocation: { description: formData.pickupLocation },
+      dropoffLocation: { description: formData.dropoffLocation },
+      pickupDateTime: formData.pickupDateTime,
+      bookingType: formData.bookingType,
+      notes: formData.notes,
+    };
+  
     try {
-      const response = await fetch(`${API_BASE}/api/bookings`, {
+      const response = await fetch("http://localhost:5001/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(bookingData),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Booking request submitted successfully!");
-        setFormData({
-          name: "",
-          email: "",
-          phoneNumber: "",
-          pickupLocation: "",
-          dropoffLocation: "",
-          pickupDateTime: "",
-          bookingType: "one-way",
-          notes: "",
-        });
-      } else {
-        throw new Error(data.message || "Something went wrong.");
+  
+      const result = await response.json();
+  
+      if (!response.ok) {
+        if (result?.message?.toLowerCase().includes("duplicate")) {
+          setApiError("Duplicate booking found. Please check your booking details.");
+        } else {
+          setApiError(result?.message || "Something went wrong.");
+        }
+        return;
       }
-    } catch (error) {
-      console.error("Error making booking:", error);
-      alert("Failed to submit booking. Please try again later.");
+  
+      setMessage("Booking submitted successfully!");
+      setApiError("");
+      setSubmittedData(bookingData);
+    } catch (err) {
+      console.error("Error making the booking:", err);
+      setApiError("Something went wrong.");
     }
   };
+  
 
   return (
-    <div className="booking-container">
-      {/* Phone Auth Popup */}
-      <PhoneAuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        onVerified={() => {
-          setIsAuthenticated(true);
-          localStorage.setItem("isPhoneVerified", "true");
-        }}
-      />
+    <div className="booking-form">
+      <h2>Book a Ride</h2>
+      {apiError && <p className="error-message">{apiError}</p>}
+      {message && <p className="success-message">{message}</p>}
 
-      {/* Contact Info */}
-      <div className="contact-info-box">
-        <h2 className="contact-subtitle">We'd Love To Serve You</h2>
-        <h1 className="contact-title">CONTACT INFORMATION</h1>
-        <div className="contact-section"><FaMapMarkerAlt className="contact-icon" /><div><h3>Address</h3><p>The Grand Monarch, located near Seema Hall in Prahlad Nagar, Ahmedabad - 380015</p></div></div>
-        <div className="contact-section"><FaPhoneAlt className="contact-icon" /><div><h3>Phone</h3><p>+91 9054891423</p></div></div>
-        <div className="contact-section"><FaEnvelope className="contact-icon" /><div><h3>Email</h3><p>gohelvivek0000@gmail.com</p></div></div>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      {/* Booking Form */}
-      <div className="contact-form-box">
-        <h2>Book a ride !</h2>
-        <form onSubmit={handleSubmit} className="contact-form">
-          <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} />
-          <input type="tel" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} />
-          <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="input-with-icon"><FaMapMarkerAlt className="input-icon" />
-            <input type="text" name="pickupLocation" placeholder="Pickup Location" value={formData.pickupLocation} onChange={handleChange} />
-          </div>
+        <div className="form-group">
+          <label htmlFor="phoneNumber">Phone Number</label>
+          <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="input-with-icon"><FaMapMarkerAlt className="input-icon" />
-            <input type="text" name="dropoffLocation" placeholder="Dropoff Location" value={formData.dropoffLocation} onChange={handleChange} />
-          </div>
+        <div className="form-group">
+          <label htmlFor="pickupLocation">Pickup Location</label>
+          <input
+            type="text"
+            id="pickupLocation"
+            name="pickupLocation"
+            value={formData.pickupLocation}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <input type="datetime-local" name="pickupDateTime" value={formData.pickupDateTime} onChange={handleChange} />
+        <div className="form-group">
+          <label htmlFor="dropoffLocation">Dropoff Location</label>
+          <input
+            type="text"
+            id="dropoffLocation"
+            name="dropoffLocation"
+            value={formData.dropoffLocation}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <select name="bookingType" value={formData.bookingType} onChange={handleChange}>
-            <option value="one-way">One-way</option>
-            <option value="round-trip">Round-trip</option>
+        <div className="form-group">
+          <label htmlFor="pickupDateTime">Pickup Date & Time</label>
+          <input
+            type="datetime-local"
+            id="pickupDateTime"
+            name="pickupDateTime"
+            value={formData.pickupDateTime}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="bookingType">Booking Type</label>
+          <select
+            id="bookingType"
+            name="bookingType"
+            value={formData.bookingType}
+            onChange={handleChange}
+            required
+          >
+            <option value="one-way">One Way</option>
+            <option value="round-trip">Round Trip</option>
             <option value="tour">Tour</option>
           </select>
+        </div>
 
-          <textarea name="notes" placeholder="Any Special Instructions" value={formData.notes} onChange={handleChange} />
-          <button type="submit">SUBMIT BOOKING</button>
-        </form>
-      </div>
+        <div className="form-group">
+          <label htmlFor="notes">Additional Notes</label>
+          <textarea
+            id="notes"
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            placeholder="Any special requests?"
+          ></textarea>
+        </div>
+
+        <button type="submit" className="submit-btn">
+          Submit Booking
+        </button>
+      </form>
+
+      {submittedData && (
+        <div className="submitted-data">
+          <h3>Booking Submitted:</h3>
+          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
+        </div>
+      )}
     </div>
   );
 };

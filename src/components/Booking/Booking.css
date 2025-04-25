@@ -124,3 +124,84 @@
   font-size: 1.3rem;
   color: #facc15;
 }
+
+.verification-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); /* Darker background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.verification-box {
+  background: linear-gradient(145deg, #6a5acd, #8a2be2); /* Attractive gradient */
+  padding: 3rem;
+  border-radius: 15px;
+  text-align: center;
+  width: 350px; /* Increased width */
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+  color: white;
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.verification-box:hover {
+  transform: scale(1.08); /* Slight zoom-in effect on hover */
+}
+
+.verification-box h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.verification-box p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.verification-box input {
+  width: 90%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.verification-box input:focus {
+  border-color: #8a2be2; /* Focus effect */
+}
+
+.verification-box button {
+  margin: 10px 5px;
+  padding: 12px 20px;
+  border: none;
+  background: #4CAF50; /* Green color */
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.verification-box button:hover {
+  background: #45a049; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight button lift effect */
+}
+
+.verification-box .cancel-btn {
+  background: #f44336; /* Red color for cancel button */
+}
+
+.verification-box .cancel-btn:hover {
+  background: #e53935; /* Darker red on hover */
+  transform: translateY(-2px);
+}
+

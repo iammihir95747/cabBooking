@@ -9,7 +9,6 @@ const CarSelection = () => {
   const [error, setError] = useState(null); // error state
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const fetchCars = async () => {
         try {
@@ -25,9 +24,7 @@ const CarSelection = () => {
     };
 
     fetchCars();
-}, []);
-
-  
+  }, []);
 
   const handleBookNow = (car) => {
     const token = localStorage.getItem('token');
