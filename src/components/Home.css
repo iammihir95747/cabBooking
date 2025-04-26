@@ -144,6 +144,7 @@
   .btn-book {
 	background-color: #ff5722;
 	border: none;
+	width: 30%;
 	padding: 15px 30px;
 	font-size: 1.1rem;
 	color: #fff;

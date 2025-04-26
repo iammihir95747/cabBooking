@@ -1,26 +1,23 @@
-import React, { useState  , useEffect} from 'react';
+import React, { useState } from 'react';
 import './Auth.css';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
-
 
 const API_BASE = "http://localhost:5001";
 
-function Login() { 
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const role = localStorage.getItem("role");
- 
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     if (!email || !password) {
       toast.error("❌ Email and Password are required");
-      setLoading(false); 
+      setLoading(false);
       return;
     }
 
@@ -41,22 +38,21 @@ function Login() {
       }
 
       toast.success("✅ Login Successful");
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role",data.role);
 
-       ///routes 
-       if(data.role === "Student"){
-         navigate('/StudentRoute');
-       }
-       else if(data.role === "Teacher"){
-         navigate('/TeacherRoute');
-       }
-       else{
-         navigate('/homepage');
-       }
+      // Store token and role in localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+
+      // Redirect based on role
+      if (data.role === "user") {
+        navigate("/home");
+      } else if (data.role === "driver") {
+        navigate("/driver");
+      } else {
+        navigate("/admin");
+      }
 
       window.dispatchEvent(new Event("storage"));
-
     } catch (error) {
       toast.error(error.message || "Login failed");
       console.error("Login Error:", error.message);
@@ -66,40 +62,42 @@ function Login() {
   };
 
   return (
-    <div className='register-container'>
+    <div className="register-container">
       <div className="register">
         <div className="form-login">
-          <form className='form-block' autoComplete='off' onSubmit={handleLogin}>
-          <h5 className="titilereg">Signin <br /><span className="actext">Login to your SteadyDusk account</span></h5>
+          <form className="form-block" autoComplete="off" onSubmit={handleLogin}>
+            <h5 className="titilereg">
+              Signin <br />
+              <span className="actext">Login to your SteadyDusk account</span>
+            </h5>
 
-            <input 
-              className='form-item' 
-              type="email" 
+            <input
+              className="form-item"
+              type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required 
-              autoComplete='off' 
+              required
+              autoComplete="off"
             />
 
-            <input 
-              className='form-item' 
-              type="password" 
+            <input
+              className="form-item"
+              type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required 
-              autoComplete='new-password' 
+              required
+              autoComplete="new-password"
             />
 
             <button type="submit" className="sub" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </button>
 
-            <div><Toaster position="top-right"
-           reverseOrder={false}
-           color='#fff'
-          /></div>
+            <div>
+              <Toaster position="top-right" reverseOrder={false} color="#fff" />
+            </div>
           </form>
         </div>
       </div>
@@ -107,4 +105,4 @@ function Login() {
   );
 }
 
-export default Login; // ✅ Renamed to match its purpose
+export default Login;

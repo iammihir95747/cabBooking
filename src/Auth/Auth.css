@@ -7,11 +7,16 @@
 
 /* ✅ Main container to center everything */
 .register-container {
+    margin-top: -40px;
+    background-color: black;
     display: flex;
+    color: #fff;
     flex-direction: column;
     align-items: center; /* Center content horizontally */
     justify-content: center; /* Center content vertically */
     padding: 20px;
+    height: 600px;
+    overflow: hidden;
 }
 .form-login{
     width:100%;
@@ -76,7 +81,7 @@ input{
     
 }
 .policy a {
-    color: rgb(109, 72, 170);
+    color: rgb(255, 255, 255);
 }
 
 
@@ -121,9 +126,9 @@ input::placeholder{
     padding: 10px;
     padding-left: 0px;
     padding-right: 0px;
-    background-color: rgb(107, 66, 184);
-    color: white;
-    font-weight: 400;
+    background-color: rgb(233, 199, 50);
+    color: rgb(0, 0, 0);
+    font-weight: 600;
     text-align: center;
     border-radius: 5px;
     border: none;
@@ -133,7 +138,8 @@ input::placeholder{
 }
 
 .sub:hover {
-    background-color: rgb(141, 86, 192);
+    color: #030303;
+    background-color: rgb(187, 156, 19);
 }
 
 /* ✅ Mobile Responsiveness */
@@ -288,7 +294,7 @@ input::placeholder{
 }
 
 .admin-box{
-    border: 1px solid rgb(100, 65, 145);
+    border: 1px solid rgb(233, 199, 50);
     transition: 0.2s ease;
 }
 
@@ -304,11 +310,11 @@ input::placeholder{
     border: none;
     color: #fff;
     border-radius: 5px;
-    background-color: rgb(94, 70, 202);
+    background-color: rgb(233, 199, 50);
     padding: 8px 100px 8px 110px;
 }
 .sub-btn-reg button:hover{
-    background-color: rgb(109, 91, 190) ;
+    background-color: rgb(233, 199, 50) ;
     transition: 0.3s ease;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2); 
 }

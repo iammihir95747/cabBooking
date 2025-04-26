@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast"; // Import toast and Toaster from react-hot-toast
 import './Booking.css'; // Assuming you're still using the same styling from Contact.css
+import Footer from '../Footer/Footer';
+import Bookingsteps from '../Booking/Bookingsteps/Bookingsteps'
 
 const Booking = () => {
   const [formData, setFormData] = useState({
@@ -110,6 +112,7 @@ const Booking = () => {
   };
 
   return (
+    <>
     <div className="contact-container">
       <div className="contact-info-box">
         <h2 className="contact-subtitle">Ready for Your Ride?</h2>
@@ -226,7 +229,14 @@ const Booking = () => {
           },
         }}
       />
+      
     </div>
+
+    <Bookingsteps />
+    <Footer />
+
+
+    </>
   );
 };
 

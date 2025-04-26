@@ -1,0 +1,117 @@
+
+  .category-container {
+    text-align: center;
+    width: 100%;
+    background-color: #000000;
+    height: 400px;
+    overflow: hidden;  }
+  
+  /* Header */
+  .cat-head h2 {
+    color: #fafafa;
+    margin-bottom: 10px;
+  }
+  
+  .cat-sub-text h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .cat-sub-text p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Category Box */
+  .box-cat {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .category-box {
+    background-color: #ebebeb;
+    border: none;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .category-box:hover {
+    background-color: #131212;
+  }
+  
+  .PHeader {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .Psubtext {
+    font-size: 0.9rem;
+    color: #bbb;
+  }
+  
+
+  
+  .signup-message {
+    font-size: 1.2rem;
+    color: #fff;
+  }
+  
+  /* Signup Button */
+  .sub-btn-reg {
+    margin-top: 20px;
+  }
+  
+  .sub-btn-reg button {
+    background-color: #d8c40d;
+    color: rgb(0, 0, 0);
+    width: 20%;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .sub-btn-reg button:hover {
+    background-color: #000000;
+    color: #fff;
+  }
+  
+  /* Footer */
+  .foot-subtext p {
+   
+    color: #bbb;
+  }
+  
+  .foot-subtext a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .foot-subtext a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Button on category selection */
+  .not-active button {
+    background-color: #666;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-size: 1rem;
+    cursor: not-allowed;
+    border-radius: 5px;
+    pointer-events: none;
+  }
+  

@@ -53,7 +53,7 @@ const Navbar = () => {
             {!isLoggedIn ? (
               <>
                 <button className="nav-button-login" onClick={handleLogin}>Login</button>
-                <button className="nav-button" onClick={handleRegister}>Sign up for free</button>
+                <button className="nav-button" onClick={handleRegister}>SignUp</button>
               </>
             ) : (
               <>
@@ -72,7 +72,7 @@ const Navbar = () => {
         {!isLoggedIn ? (
           <>
             <button className="nav-button-login" onClick={handleLogin}>Login</button>
-            <button className="nav-button" onClick={handleRegister}>Sign up for free</button>    
+            <button className="nav-button" onClick={handleRegister}>SignUp</button>    
           </>
         ) : (
           <>
