@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast"; // Import toast and Toaster from react-hot-toast
+import './Booking.css'; // Assuming you're still using the same styling from Contact.css
 
 const Booking = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +14,6 @@ const Booking = () => {
     notes: "",
   });
   const [submittedData, setSubmittedData] = useState(null);
-  const [apiError, setApiError] = useState("");
   const [message, setMessage] = useState("");
 
   // Handle form field changes
@@ -21,12 +22,55 @@ const Booking = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Validate phone number (10 digits)
+  const validatePhoneNumber = (phoneNumber) => {
+    const phoneRegex = /^[0-9]{10}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
+  // Validate all required fields
+  const validateForm = () => {
+    if (!formData.name) {
+      toast.error("Name is required.");
+      return false;
+    }
+    if (!formData.email) {
+      toast.error("Email is required.");
+      return false;
+    }
+    if (!formData.phoneNumber) {
+      toast.error("Phone number is required.");
+      return false;
+    }
+    if (!validatePhoneNumber(formData.phoneNumber)) {
+      toast.error("Please enter a valid 10-digit phone number.");
+      return false;
+    }
+    if (!formData.pickupLocation) {
+      toast.error("Pickup location is required.");
+      return false;
+    }
+    if (!formData.dropoffLocation) {
+      toast.error("Dropoff location is required.");
+      return false;
+    }
+    if (!formData.pickupDateTime) {
+      toast.error("Pickup date and time are required.");
+      return false;
+    }
+    return true;
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    console.log("Form data being sent:", formData);
-  
+    setMessage(""); // Clear previous success messages
+
+    // Validate the form before submission
+    if (!validateForm()) {
+      return; // Stop form submission if validation fails
+    }
+
     const bookingData = {
       name: formData.name,
       email: formData.email,
@@ -37,7 +81,7 @@ const Booking = () => {
       bookingType: formData.bookingType,
       notes: formData.notes,
     };
-  
+
     try {
       const response = await fetch("http://localhost:5001/api/bookings", {
         method: "POST",
@@ -46,144 +90,142 @@ const Booking = () => {
         },
         body: JSON.stringify(bookingData),
       });
-  
+
       const result = await response.json();
-  
+
       if (!response.ok) {
-        if (result?.message?.toLowerCase().includes("duplicate")) {
-          setApiError("Duplicate booking found. Please check your booking details.");
-        } else {
-          setApiError(result?.message || "Something went wrong.");
-        }
+        // Show the backend error in a toast notification
+        toast.error(result?.message || "Something went wrong.");
         return;
       }
-  
+
       setMessage("Booking submitted successfully!");
-      setApiError("");
+      toast.success("Booking submitted successfully!");
+
       setSubmittedData(bookingData);
     } catch (err) {
       console.error("Error making the booking:", err);
-      setApiError("Something went wrong.");
+      toast.error("Something went wrong.");
     }
   };
-  
 
   return (
-    <div className="booking-form">
-      <h2>Book a Ride</h2>
-      {apiError && <p className="error-message">{apiError}</p>}
-      {message && <p className="success-message">{message}</p>}
+    <div className="contact-container">
+      <div className="contact-info-box">
+        <h2 className="contact-subtitle">Ready for Your Ride?</h2>
+        <h1 className="contact-title">BOOK A RIDE</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Full Name</label>
+        {/* Booking Info Section */}
+        <div className="contact-section">
+          <h3>Contact Us</h3>
+          <p>
+            Near Shiv Lehri Hotel, Under Bridge Road,<br />
+            Samarpan, Jamnagar, 361004
+          </p>
+        </div>
+
+        <div className="contact-section">
+          <h3>Call Us</h3>
+          <p>+91 7069996009<br />Info@dwarkeshcab.in</p>
+        </div>
+
+        <div className="contact-section">
+          <h3>Business Hours</h3>
+          <p>Mon- Fri: 9am - 8pm<br />Sat-Sun: 10am - 4pm</p>
+        </div>
+      </div>
+
+      <div className="contact-form-box">
+        <h2 className="form-heading">
+          Book Your Ride Now, We'll Handle The Rest!
+        </h2>
+
+        <form onSubmit={handleSubmit} className="contact-form">
           <input
             type="text"
-            id="name"
             name="name"
+            placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
-            required
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="phoneNumber">Phone Number</label>
           <input
             type="tel"
-            id="phoneNumber"
             name="phoneNumber"
+            placeholder="Phone Number"
             value={formData.phoneNumber}
             onChange={handleChange}
-            required
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="pickupLocation">Pickup Location</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+          />
           <input
             type="text"
-            id="pickupLocation"
             name="pickupLocation"
+            placeholder="Pickup Location"
             value={formData.pickupLocation}
             onChange={handleChange}
-            required
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="dropoffLocation">Dropoff Location</label>
           <input
             type="text"
-            id="dropoffLocation"
             name="dropoffLocation"
+            placeholder="Dropoff Location"
             value={formData.dropoffLocation}
             onChange={handleChange}
-            required
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="pickupDateTime">Pickup Date & Time</label>
           <input
             type="datetime-local"
-            id="pickupDateTime"
             name="pickupDateTime"
             value={formData.pickupDateTime}
             onChange={handleChange}
-            required
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="bookingType">Booking Type</label>
           <select
-            id="bookingType"
             name="bookingType"
             value={formData.bookingType}
             onChange={handleChange}
-            required
           >
             <option value="one-way">One Way</option>
             <option value="round-trip">Round Trip</option>
             <option value="tour">Tour</option>
           </select>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="notes">Additional Notes</label>
           <textarea
-            id="notes"
             name="notes"
+            placeholder="Additional Notes"
             value={formData.notes}
             onChange={handleChange}
-            placeholder="Any special requests?"
           ></textarea>
-        </div>
 
-        <button type="submit" className="submit-btn">
-          Submit Booking
-        </button>
-      </form>
+          <button type="submit">Submit Booking</button>
+        </form>
+      </div>
 
-      {submittedData && (
-        <div className="submitted-data">
-          <h3>Booking Submitted:</h3>
-          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
-        </div>
-      )}
+      {/* Toast Container for notifications */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            background: "#333",
+            color: "#fff", // White text
+            padding: "10px",
+            borderRadius: "8px",
+            fontSize: "14px",
+          },
+          error: {
+            style: {
+              background: "#000000", // Red background for error
+            },
+          },
+          success: {
+            style: {
+              background: "#000000", // Green background for success
+            },
+          },
+        }}
+      />
     </div>
   );
 };

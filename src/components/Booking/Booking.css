@@ -1,19 +1,18 @@
-.booking-container {
+.contact-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
   min-height: 100vh;
-  padding: 2rem;
   background: black;
-  margin-top: -50px;
+  margin-top: -20px;
   color: white;
+  padding: 2rem;
 }
 
-.contact-info-box {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  justify-content: center;
+@media (min-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .contact-subtitle {
@@ -23,14 +22,23 @@
 }
 
 .contact-title {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 900;
+}
+
+.contact-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 3%;
+  margin-left: 30%;
 }
 
 .contact-section {
   display: flex;
+  margin-top: -3%;
   gap: 1rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .contact-icon {
@@ -44,17 +52,19 @@
 }
 
 .contact-section p {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .contact-form-box {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
+  margin-top: 3%;
+  margin-right: 30%;
 }
 
 .form-heading {
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -65,24 +75,27 @@
 }
 
 .contact-form input,
-.contact-form select,
-.contact-form textarea {
+.contact-form select {
   background: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
-  border: none;
   border-bottom: 1px solid white;
-  padding:0.3rem;
-  font-size: 1rem;
+  padding: 0.1rem;
+  font-size: 0.9rem;
   outline: none;
   width: 100%;
 }
-.contact-form ::placeholder{
-  color: #000000;
+
+.contact-form textarea {
+  margin: 0;
+}
+
+.contact-form ::placeholder {
+  color: black;
 }
 
 .contact-form textarea {
   resize: vertical;
-  min-height: 1rem;
+  min-height: 6rem;
 }
 
 .contact-form input[type="datetime-local"] {
@@ -104,104 +117,72 @@
 }
 
 .contact-form button:hover {
-  background: #e0b430;
+  background: #eab308;
 }
 
-/* Styles for input fields with icons */
-.input-with-icon {
+.form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.form-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #666;
+}
+
+.input-field input,
+.input-field select,
+.input-field textarea {
+  padding-left: 30px; /* Space for the icon */
+  padding-right: 10px;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #27ae60;
+}
+
+/* Styles for inputs with icons */
+.input-field {
   position: relative;
 }
 
-.input-with-icon input {
-  padding-left: 2.5rem; /* Creates space for the icon */
+.input-field input,
+.input-field select,
+.input-field textarea {
+  padding-left: 40px; /* Adjust padding for the icon */
 }
 
-.input-icon {
+.input-field .form-icon {
   position: absolute;
-  left: 0.75rem;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.3rem;
-  color: #facc15;
+  font-size: 18px;
+  color: #facc15; /* Yellow icon color */
 }
 
-.verification-modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7); /* Darker background */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+.input-field input:focus,
+.input-field select:focus,
+.input-field textarea:focus {
+  border-color: #facc15; /* Highlight border on focus */
 }
-
-.verification-box {
-  background: linear-gradient(145deg, #6a5acd, #8a2be2); /* Attractive gradient */
-  padding: 3rem;
-  border-radius: 15px;
-  text-align: center;
-  width: 350px; /* Increased width */
-  box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
-  color: white;
-  transform: scale(1.05);
-  transition: transform 0.2s ease;
-}
-
-.verification-box:hover {
-  transform: scale(1.08); /* Slight zoom-in effect on hover */
-}
-
-.verification-box h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-
-.verification-box p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-
-.verification-box input {
-  width: 90%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.verification-box input:focus {
-  border-color: #8a2be2; /* Focus effect */
-}
-
-.verification-box button {
-  margin: 10px 5px;
-  padding: 12px 20px;
-  border: none;
-  background: #4CAF50; /* Green color */
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.verification-box button:hover {
-  background: #45a049; /* Darker green on hover */
-  transform: translateY(-2px); /* Slight button lift effect */
-}
-
-.verification-box .cancel-btn {
-  background: #f44336; /* Red color for cancel button */
-}
-
-.verification-box .cancel-btn:hover {
-  background: #e53935; /* Darker red on hover */
-  transform: translateY(-2px);
-}
-
