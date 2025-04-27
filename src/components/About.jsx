@@ -7,7 +7,7 @@ const About = () => {
     <div>
         <div class="aboutcontainer">
             
-        <h2 className='text-black my-5 mx-5 '>This page is under development</h2>
+        <h2 className='text-black my-5 mx-5 '>This page is under development ... </h2>
 
         </div>
     </div>

@@ -24,6 +24,7 @@
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
+    cursor: pointer;
   }
   .step-card:hover{
     transform: translatey(-4px);

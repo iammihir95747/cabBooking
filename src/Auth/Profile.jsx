@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import './profile.css';  // Make sure you import the CSS file
 
-const API_BASE = "https://server-node-eef9.onrender.com";
-
+const API_BASE = "http://localhost:5001";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -17,12 +17,12 @@ function Profile() {
       }
 
       try {
-        const response = await fetch(`${API_BASE}/Auth/profile`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+        const response = await fetch(`${API_BASE}/api/auth/profile`, { 
+          method: "GET", 
+          headers: { 
+            "Content-Type": "application/json", 
+            Authorization: `Bearer ${token}`, 
+          }, 
         });
 
         if (!response.ok) throw new Error("Failed to fetch profile");
@@ -37,10 +37,9 @@ function Profile() {
     fetchProfile();
   }, [navigate]);
 
-  // ✅ Logout Function
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token
-    navigate("/login"); // Redirect to login page
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   return (
@@ -50,11 +49,9 @@ function Profile() {
       </div>
       {user ? (
         <div className="profile-info">
-          <div className="profiletxt">Username: {user.username}</div>
+          <div className="profiletxt">Username: {user.name}</div>
           <div className="profiletxt">Email: {user.email}</div>
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <p>Loading...</p>

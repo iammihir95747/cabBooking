@@ -7,7 +7,7 @@
 
 /* ✅ Main container to center everything */
 .register-container {
-    margin-top: -40px;
+    margin-top: -60px;
     background-color: black;
     display: flex;
     color: #fff;
@@ -22,7 +22,7 @@
     width:100%;
     display: flex;
     justify-content: center;
-    margin-top: 11vh;
+    margin-top: -10vh;
     flex-direction: column;
     align-content: center;
     align-items: center;

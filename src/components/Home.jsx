@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { data, Link , useNavigate } from "react-router-dom";
 import "./Nav.css";
-import Profile from '../components/Profile.jpg'
+import Profile from '../components/Profile.png'
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -39,9 +39,10 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-        <div className="nav-logo"><Link to="/" className="nav-logo">Cab Service</Link></div>
+        <div className="nav-logo"><Link to="/" className="nav-logo">Chamunda cabs</Link></div>
         
         <ul className={`nav-menu ${menuOpen ? "active" : ""}`}>
+          <li><Link to="/Homepage" className="nav-link" onClick={() => setMenuOpen(false)}>Home</Link></li>
           <li><Link to="/services" className="nav-link" onClick={() => setMenuOpen(false)}>Services</Link></li>
           <li><Link to="/Booking" className="nav-link" onClick={() => setMenuOpen(false)}>Booking</Link></li>
           <li><Link to="/About" className="nav-link" onClick={() => setMenuOpen(false)}>About</Link></li>

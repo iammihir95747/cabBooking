@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Auth.css';
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
@@ -10,6 +10,14 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/homepage"); // Redirect to home if already logged in
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -45,11 +53,11 @@ function Login() {
 
       // Redirect based on role
       if (data.role === "user") {
-        navigate("/home");
+        navigate("/homepage");
       } else if (data.role === "driver") {
         navigate("/driver");
       } else {
-        navigate("/admin");
+        navigate("/homepage");
       }
 
       window.dispatchEvent(new Event("storage"));

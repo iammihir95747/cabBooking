@@ -1,163 +1,133 @@
-import { useState } from "react";
-import "./Auth.css";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import './Auth.css';
+import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
-import Footer from '../components/Footer/Footer'
 
 const API_BASE = "http://localhost:5001";
 
-const Register = () => {
-  const [searchParams] = useSearchParams();
-  const role = searchParams.get("role");
+function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    address: "",
-    phone: "",
-    agreeTerms: false,
-    role: role,
-  });
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home"); // Redirect to home if already logged in
+    }
+  }, [navigate]);
 
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
 
+    if (!email || !password || !confirmPassword) {
+      toast.error("❌ All fields are required");
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("❌ Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch(`${API_BASE}/Auth/register`, {
+      console.log("Sending Register Request:", { email, password });
+
+      const response = await fetch(`${API_BASE}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Registration failed ❌");
+      console.log("Register Response:", data);
 
-      toast.success("✅ Registration Successful!");
-
-      // Store token and role if the backend sends them
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", formData.role);
-
-      // Clear form
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-        address: "",
-        phone: "",
-        agreeTerms: false,
-        role: role,
-      });
-
-      // Redirect based on role
-      if (formData.role === "user") {
-        navigate("/home");
-      } else if (formData.role === "driver") {
-        navigate("/driver");
+      if (!response.ok || !data.token) {
+        throw new Error(data.error || "Registration Failed ❌");
       }
 
+      toast.success("✅ Registration Successful");
+
+      // Store token and role in localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+
+      // Redirect based on role
+      if (data.role === "user") {
+        navigate("/home");
+      } else if (data.role === "driver") {
+        navigate("/driver");
+      } else {
+        navigate("/admin");
+      }
+
+      window.dispatchEvent(new Event("storage"));
     } catch (error) {
-      toast.error(error.message || "Something went wrong ❌");
+      toast.error(error.message || "Registration failed");
+      console.error("Registration Error:", error.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
     <div className="register-container">
       <div className="register">
-        <form className="form-block" autoComplete="off" onSubmit={handleSubmit}>
-          <center>
+        <div className="form-login">
+          <form className="form-block" autoComplete="off" onSubmit={handleRegister}>
             <h5 className="titilereg">
-              SignUp <br />
-              <span className="actext">Welcome to SteadyDuskApp</span>
+              Sign Up <br />
+              <span className="actext">Create your account</span>
             </h5>
-          </center>
-          <div>
-            <input
-              className="form-item"
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Enter username"
-              required
-            />
-          </div>
-          <div>
+
             <input
               className="form-item"
               type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="off"
             />
-          </div>
-          <div>
+
             <input
               className="form-item"
               type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
-          </div>
-          <div>
+
             <input
               className="form-item"
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="Enter address"
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
-          </div>
-          <div>
-            <input
-              className="form-item"
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter phone Number"
-              required
-            />
-          </div>
-          <button className="sub" type="submit" disabled={loading}>
-            {loading ? "Registering..." : "Register"}
-          </button>
-          <div>
-            <Toaster position="top-right" reverseOrder={false} color="#fff" />
-          </div>
-          <div className="policy">
-            By clicking Sign up you agree to our
-            <a href=""> Terms of Use</a> and <a href="">Privacy policy.</a>
-          </div>
-        </form>
+
+            <button type="submit" className="sub" disabled={loading}>
+              {loading ? "Registering..." : "Register"}
+            </button>
+
+            <div>
+              <Toaster position="top-right" reverseOrder={false} color="#fff" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  <Footer />
-  </>
   );
-};
+}
 
 export default Register;
