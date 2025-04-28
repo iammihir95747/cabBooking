@@ -29,16 +29,15 @@ function Category() {
             <h2>Create an account</h2>
           </center>
           <div className="cat-sub-text">
-           
             <p>Choose which type of account you'd like to create:</p>
           </div>
         </div>
 
         {visible && (
           <div className="box-cat">
-            {[
-              { role: "Driver", subtext: "Admins⚙️" },
-              { role: "User", subtext: "I'm looking for a ride. 🚗" },
+            {[ 
+              { role: "driver", subtext: "Admins⚙️" },
+              { role: "user", subtext: "I'm looking for a ride. 🚗" }
             ].map(({ role, subtext }) => (
               <button
                 className="category-box"
@@ -51,12 +50,6 @@ function Category() {
             ))}
           </div>
         )}
-
-        {/* {!visible && (
-          <div className="not-active">
-            <p className="signup-message">Sign up as a {role}</p>
-          </div>
-        )} */}
 
         <div className="sub-btn-reg">
           {!visible && role && (

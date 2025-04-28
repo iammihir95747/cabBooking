@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from './Footer/Footer';
 import CarSelection from './CarSelection/CarSelection';
+import './Home.css';
 
 const Homepage = () => {
   const scrollToBooking = () => {
