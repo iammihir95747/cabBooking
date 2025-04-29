@@ -122,14 +122,13 @@ const Booking = () => {
         <div className="contact-section">
           <h3>Contact Us</h3>
           <p>
-            Near Shiv Lehri Hotel, Under Bridge Road,<br />
-            Samarpan, Jamnagar, 361004
+          prahlad nagar seema hall the grand monarch ahmedabad - 380015
           </p>
         </div>
 
         <div className="contact-section">
           <h3>Call Us</h3>
-          <p>+91 7069996009<br />Info@dwarkeshcab.in</p>
+          <p>+91 9054891423<br />gohelvivek0000@gmail.com</p>
         </div>
 
         <div className="contact-section">

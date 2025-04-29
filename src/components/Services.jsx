@@ -2,9 +2,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./Services.css"; 
+import Footer from '../components/Footer/Footer'
 
 const Services = () => {
   return (
+    <>
     <section className="services-section">
       <motion.div 
         initial={{ opacity: 0, y: 50 }} 
@@ -60,6 +62,8 @@ const Services = () => {
         </div>
       </motion.div>
     </section>
+    <Footer />
+    </>
   );
 };
 
