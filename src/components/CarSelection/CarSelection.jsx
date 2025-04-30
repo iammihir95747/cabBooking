@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './CarSelection.css'; // Custom styling
 
-const API_VITE = "http://localhost:5001"
+const API_VITE = "https://cabserver.onrender.com"
 
 const CarSelection = () => {
   const [cars, setCars] = useState([]);
