@@ -37,7 +37,7 @@ function Category() {
           <div className="box-cat">
             {[ 
               { role: "driver", subtext: "Admins⚙️" },
-              { role: "user", subtext: "I'm looking for a ride. 🚗" }
+              { role: "user", subtext: "I want make an free account 🚗" }
             ].map(({ role, subtext }) => (
               <button
                 className="category-box"

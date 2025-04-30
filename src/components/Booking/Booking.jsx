@@ -135,6 +135,10 @@ const Booking = () => {
           <h3>Business Hours</h3>
           <p>Mon- Fri: 9am - 8pm<br />Sat-Sun: 10am - 4pm</p>
         </div>
+        <div className="contact-section">
+          <h3>booking cancellation is not available for now</h3>
+         
+        </div>
       </div>
 
       <div className="contact-form-box">

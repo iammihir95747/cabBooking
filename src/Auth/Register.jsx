@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";  // Import useLocation to access query params
 import './Auth.css';
 import { toast, Toaster } from "react-hot-toast";
+import Footer from '../components/Footer/Footer'
 
 const API_BASE = "http://localhost:5001";
 
@@ -72,13 +73,14 @@ function Register() {
   };
 
   return (
+    <>
     <div className="register-container">
       <div className="register">
         <div className="form-login">
           <form className="form-block" autoComplete="off" onSubmit={handleRegister}>
             <h5 className="titilereg">
               Signup <br />
-              <span className="actext">Create your SteadyDusk account</span>
+              <span className="actext">Create your free account</span>
             </h5>
 
             <input
@@ -121,11 +123,7 @@ function Register() {
               autoComplete="off"
             />
 
-            {/* Display the selected role */}
-            <div className="form-item">
-              <label>Selected Role: {role}</label>
-            </div>
-
+      
             <button type="submit" className="sub" disabled={loading}>
               {loading ? "Registering..." : "Register"}
             </button>
@@ -137,6 +135,8 @@ function Register() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 

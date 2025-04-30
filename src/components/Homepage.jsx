@@ -12,9 +12,8 @@ const Homepage = () => {
   };
 
   return (
-   <>
-
-<section id="hero">
+    <>
+      <section id="hero">
         <div className="hero-content">
           <div className="hero-left">
             <h1>Ride with Comfort</h1>
@@ -29,7 +28,6 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Services Section */}
       <section id="services">
         <h2>Our Services</h2>
         <div className="service-items">
@@ -50,7 +48,6 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Information Section */}
       <section id="info">
         <h2>Why Choose Our Cab Service?</h2>
         <p>
@@ -61,16 +58,14 @@ const Homepage = () => {
         </p>
       </section>
 
-      {/* Booking Section (Placeholder) */}
       <section id="booking">
-        <h2>Book Your Ride Today</h2>
+        <h2>Book Your Ride Today </h2>
+        <hr className='bookridehr' />
         <CarSelection />
       </section>
 
-     <Footer />
-    
-   
-   </>
+      <Footer />
+    </>
   );
 };
 

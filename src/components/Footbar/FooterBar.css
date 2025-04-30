@@ -1,41 +1,76 @@
 .footer-bar {
-    background-color: yellow; /* Match the background color */
-    color: black; /* Match the text color */
-    padding: 10px 20px; /* Adjust padding as needed */
-    display: flex;
-    justify-content: space-between; /* Distribute space between contact info and icons */
-    align-items: center; /* Vertically align items in the center */
+  background-color: yellow;
+  color: black;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+  font-size: 0.95em;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Contact info section */
+.contact-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  max-width: 100%;
+  word-break: break-word; /* Break long words */
+}
+
+.contact-info > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 200px;
+}
+
+/* Social icons */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.social-icons a {
+  color: black;
+  text-decoration: none;
+  font-size: 1.3em;
+  transition: transform 0.2s;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+/* Icon sizes */
+.fa-phone-alt,
+.fa-envelope,
+.fa-map-marker-alt,
+.fa-search,
+.fa-whatsapp,
+.fa-facebook-f,
+.fa-instagram {
+  font-size: 1em;
+}
+
+.footer-bar {
+  display: flex;
+  /* ...your other styles... */
+}
+
+/* Hide on mobile */
+@media screen and (max-width: 768px) {
+  .footer-bar {
+    display: none !important;
   }
-  
-  .contact-info {
-    display: flex;
-    gap: 30px; /* Space between contact information items */
-  }
-  
-  .contact-info > div {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Space between icon and text */
-  }
-  
-  .social-icons {
-    display: flex;
-    gap: 15px; /* Space between social icons */
-  }
-  
-  .social-icons a {
-    color: black; /* Icon color */
-    text-decoration: none; /* Remove underlines from links */
-    font-size: 1.2em; /* Adjust icon size */
-  }
-  
-  /* You might need to adjust icon styling based on the library you use */
-  .fa-phone-alt,
-  .fa-envelope,
-  .fa-map-marker-alt,
-  .fa-search,
-  .fa-whatsapp,
-  .fa-facebook-f,
-  .fa-instagram {
-    font-size: 1em; /* Adjust icon size */
-  }
+}

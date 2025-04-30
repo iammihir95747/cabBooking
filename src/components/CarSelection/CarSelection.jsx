@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './CarSelection.css'; // Custom styling
 
+const API_VITE = "http://localhost:5001"
+
 const CarSelection = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true); // loading state
@@ -12,7 +14,7 @@ const CarSelection = () => {
   useEffect(() => {
     const fetchCars = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/api/vehicles/available');  // Public route, no auth token required
+            const response = await axios.get(`${API_VITE}/api/vehicles/available`);  // Public route, no auth token required
             console.log('Fetched available vehicles:', response.data);  // Log the fetched data
             setCars(response.data);  // Assuming `setCars` updates state for the list of vehicles
             setLoading(false);
